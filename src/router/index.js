@@ -1,23 +1,55 @@
-import { createRouter, createWebHistory } from 'vue-router'
-import HomeView from '../views/HomeView.vue'
+import { createRouter, createWebHistory } from 'vue-router';
+import Home from '../views/Home.vue';
+import ProjectDetails from '../views/ProjectDetails.vue';
+import EditProject from '../views/EditProject.vue';
+import ActivityDetails from '../views/ActivityDetails.vue';
+import EditActivity from '../views/EditActivity.vue';
+import DailyObjectives from '../views/DailyObjectives.vue';
+import TimeEntries from '../views/TimeEntries.vue';
 
 const router = createRouter({
-  history: createWebHistory(import.meta.env.BASE_URL),
+  history: createWebHistory(),
   routes: [
     {
       path: '/',
-      name: 'home',
-      component: HomeView
+      name: 'Home',
+      component: Home,
     },
     {
-      path: '/about',
-      name: 'about',
-      // route level code-splitting
-      // this generates a separate chunk (About.[hash].js) for this route
-      // which is lazy-loaded when the route is visited.
-      component: () => import('../views/AboutView.vue')
-    }
-  ]
-})
+      path: '/projects/:id',
+      name: 'ProjectDetails',
+      component: ProjectDetails,
+      children: [
+        {
+          path: 'edit',
+          name: 'EditProject',
+          component: EditProject,
+        },
+      ],
+    },
+    {
+      path: '/activities/:id',
+      name: 'ActivityDetails',
+      component: ActivityDetails,
+      children: [
+        {
+          path: 'edit',
+          name: 'EditActivity',
+          component: EditActivity,
+        },
+      ],
+    },
+    {
+      path: '/daily-objectives',
+      name: 'DailyObjectives',
+      component: DailyObjectives,
+    },
+    {
+      path: '/time-entries',
+      name: 'TimeEntries',
+      component: TimeEntries,
+    },
+  ],
+});
 
-export default router
+export default router;
